@@ -18,7 +18,7 @@
 /**
  * Framework build number. Updated with every checkin
  */
-define ('_VERSION_FRAMEWORK_BUILD', array_sum(array_map('ord', str_split('$Revision: 1.27 $')))); //Default framework version
+define ('_VERSION_FRAMEWORK_BUILD', 109); //Default framework version
 
 /*
  *

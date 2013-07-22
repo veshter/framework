@@ -415,9 +415,10 @@ final class CEnvironment extends CEntity
      */
     static function GetScriptVirtualName()
     {
-        if (!empty($_SERVER['REDIRECT_URL']))
+        if (!empty($_SERVER['REQUEST_URI']))
         {
-            return $_SERVER['REDIRECT_URL'];
+            //return $_SERVER['REDIRECT_URI');
+            return preg_replace('/\?.*$/i', '', $_SERVER['REQUEST_URI']);
         }
         return CEnvironment::GetScriptFilename();
     }

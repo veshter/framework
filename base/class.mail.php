@@ -110,7 +110,7 @@ class CMail extends CObject
      */
     function SetConfirmationTo($address)
     {
-        $this->base->$ConfirmReadingTo  = $address;
+        $this->base->ConfirmReadingTo  = $address;
     }
 
     /**
@@ -776,26 +776,6 @@ class CMail extends CObject
     function ServerVar($varName)
     {
         return $this->base->ServerVar($varName);
-    }
-
-    /**
-     * Returns the server hostname or 'localhost.localdomain' if unknown.
-     * @access private
-     * @return string
-     */
-    function ServerHostname()
-    {
-        return $this->base->ServerHostname();
-    }
-
-    /**
-     * Returns a message in the appropriate language.
-     * @access private
-     * @return string
-     */
-    function Lang($key)
-    {
-        return $this->base->Lang($key);
     }
 
     /**

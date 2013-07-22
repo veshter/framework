@@ -176,7 +176,8 @@ class CSentry extends CGadget
     {
         $this->LogoutActiveUser();
 
-
+        //CEnvironment::Dump($login);
+        //CEnvironment::Dump($user);
 
         $c = 0;
         //go through all available datagrids and see if you can get the information
@@ -187,8 +188,12 @@ class CSentry extends CGadget
             CString::Format('login=%s',	CString::Quote($login))
             ))
             {
+                //CEnvironment::Dump($datagrid->GetDatabaseLink()->GetStatus());
 
-                $data = $datagrid->GetRow(false);
+                $data = $datagrid->GetRow(0, false);
+
+                //CEnvironment::Dump($data);
+
                 $guid = $data['guid'];
                 $chunk = CGuid::NewGuid()->ToString();
                 $timestamp = time();
@@ -222,6 +227,10 @@ class CSentry extends CGadget
 
                             $session->RegisterVariable('token', $token, true);
                             return true;
+                        }
+                        else
+                        {
+                            throw new CExceptionSecurity(CString::Format('Account for %s cannot be updated. It may be readonly', $login));
                         }
                     case 'new':
                         throw new CExceptionSecurity(CString::Format('Account for %s has not been activated', $login));

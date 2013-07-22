@@ -136,10 +136,10 @@ set_include_path(get_include_path() . PATH_SEPARATOR . _PATH_FRAMEWORK_PLUGINS);
 require_once(_PATH_FRAMEWORK_BASE . 'mixed.all' . _EXT);
 
 //Default framework version
-define ('_VERSION_FRAMEWORK', 				'4.5'); 
+define ('_VERSION_FRAMEWORK', 				'5');
 
 //Default framework class version (if none is defined)
-define ('_VERSION_FRAMEWORK_CLASS', 		_VERSION_FRAMEWORK . '.0.0.' . _VERSION_FRAMEWORK_BUILD); 
+define ('_VERSION_FRAMEWORK_CLASS', 		_VERSION_FRAMEWORK . '.1.0.' . _VERSION_FRAMEWORK_BUILD);
 
 define ('_VERSION_FRAMEWORK_RELEASE', 		'1');
 

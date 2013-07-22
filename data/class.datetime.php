@@ -46,7 +46,7 @@ class CDateTime extends CData
         //make sure there is a time zone and we are NOT relying on the server's settings
         if (CString::IsNullOrEmpty(CDateTime::$timezone))
         {
-            throw new CExceptionInvalidFormat('No timezone specified');
+            CDateTime::$timezone = 'America/New_York';
         }
 
         if (empty($timestamp))
