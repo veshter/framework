@@ -113,7 +113,7 @@ class CPerspectiveView extends CDatabaseHelper
     function Configure(&$xml, $merge = true)
     {
         //figure out how many total entries we have to potentially show
-        $datagrid = CEnvironment::GetMainApplication()->GetDataGrid($specs['attributes']['datagrid']);
+        $datagrid = CEnvironment::GetMainApplication()->GetDataGrid();
 
         if ($datagrid->Select($this->GetLocation(), 'COUNT(*) AS total', $this->GetWhere(), -1, $this->GetOrderBy(), $this->GetGroupBy()))
         {
@@ -279,7 +279,7 @@ class CPerspectiveView extends CDatabaseHelper
                 if ($filter == 'null')
                 {
 
-                    CEnvironment::GetMainApplication()->GetSession()->UnregisterVariable($key);
+                    CEnvironment::GetMainApplication()->GetSession()->UnregisterVariable($filter);
                 }
                 else
                 {
@@ -422,13 +422,13 @@ class CView extends CGadget
      */
     protected $perspective = null;
 
-    function __construct() 
+    function __construct()
     {
         parent::__construct();
         $this->SetVersion('$Revision: 1.3.4.1 $');
     }
-    
-    function __destruct() 
+
+    function __destruct()
     {
         parent::__destruct();
     }
@@ -499,13 +499,13 @@ class CView extends CGadget
 
                         $this->properties['titles'][] = $element['attributes']['title'];
                         $this->properties['fields'][] = $element['attributes']['name'];
-                         
+
                         //the value could be the name of a column in a database table/view or it could be a string
                         //the value could be a combinations/concatination of fields.
                         $value = empty($element['attributes']['value']) ? $element['attributes']['name'] : $element['attributes']['value'];
-                         
+
                         //CEnvironment::Dump($column);
-                         
+
                         $this->properties['values'][] = $value;
 
                     }
@@ -532,7 +532,8 @@ class CView extends CGadget
                     $this->perspective->EnablePagination(false);
                 }
 
-                return $this->perspective->Configure();
+                $xml = null;
+                return $this->perspective->Configure($xml);
             }
             else
             {
@@ -558,8 +559,11 @@ class CView extends CGadget
 
         //see if we should look up the options from somewhere
         $location = $this->properties['location'];
+
         if (!empty($location))
         {
+            $lookups = array();
+
             $helper = $this->perspective;
 
             $datagrid = CEnvironment::GetMainApplication()->GetDataGrid($specs['attributes']['datagrid']);
