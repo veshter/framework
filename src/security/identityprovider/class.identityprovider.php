@@ -33,5 +33,10 @@ abstract class CIdentityProvider extends CGadget
     {
         parent::__destruct();
     }
+
+    protected function PrefixLogin($login)
+    {
+        return CString::Format('eid-%s', $login);
+    }
 }
 ?>

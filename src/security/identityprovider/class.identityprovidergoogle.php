@@ -96,7 +96,7 @@ class CIdentityProviderGoogle extends CIdentityProvider
 
         $user = new CUser();
 
-        $user->SetLogin($rawUser['id']);
+        $user->SetLogin($this->PrefixLogin($rawUser['id']));
         $user->SetNameFirst($rawUser['given_name']);
         $user->SetNameLast($rawUser['family_name']);
         $user->SetEmail($rawUser['email']);
@@ -106,43 +106,6 @@ class CIdentityProviderGoogle extends CIdentityProvider
 
         return $user;
 
-/*
-        $response = $this->auth_info($token);
-        //CEnvironment::Dump($response);
-
-        $parser = new CParserXML();
-        $parser->Parse($response);
-
-        $status = $parser->GetAttribute('/rsp[1]', 'stat');
-
-        //CEnvironment::Dump($status);
-        if ($status == 'ok')
-        {
-            //$profile = $parser->GetElementXML('/rsp[1]/profile[1]');
-            //CEnvironment::Dump($profile);
-            	
-            $user = new CUser();
-            list($name_first, $name_last) = explode(' ', $parser->GetElementValue("/rsp[1]/profile[1]/displayName[1]"));
-            	
-            $user->SetLogin($parser->GetElementValue("/rsp[1]/profile[1]/identifier[1]"));
-            $user->SetNameFirst($parser->GetElementValue("/rsp[1]/profile[1]/name[1]/givenName[1]"));
-            $user->SetNameLast($parser->GetElementValue("/rsp[1]/profile[1]/name[1]/familyName[1]"));
-            $user->SetEmail($parser->GetElementValue("/rsp[1]/profile[1]/email[1]"));
-            //$user->SetNameMiddle('MName');
-            //$user->SetNameLast('LName');
-            //$user->SetEmail('fake@addy.com');
-            $user->SetProfileUrl($parser->GetElementValue("/rsp[1]/profile[1]/url[1]"));
-            	
-            //CEnvironment::Dump($user);
-            	
-            return $user;
-            	
-        }
-        else
-        {
-            throw new CExceptionTimeOut('Cannot login or token timed out');
-        }
-*/
     }
 
     public function RevokeToken()
